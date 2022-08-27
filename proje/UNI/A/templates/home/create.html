@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} create post {% endblock %}
+
+{% block body %}
+<div class="container">
+     <div class="row">
+          <div class="col-md-4 mx-auto">
+               <form enctype="multipart/form-data" action="" method="post" novalidate>
+                    {% csrf_token %}
+                    <label for="">title:</label>
+                    <input name="title" placeholder="title" type="text" class="form-control" >
+                    <label for="">caption:</label>
+                    <textarea  placeholder="caption" name="caption" id="" cols="10" rows="10" class="form-control" ></textarea>
+                    <input name="img" type="file" class="form-control mt-2 mb-2">
+                    <input type="submit" class="btn btn-primary" value="create">
+               </form>
+          </div>
+     </div>
+</div>
+   
+{% endblock %}

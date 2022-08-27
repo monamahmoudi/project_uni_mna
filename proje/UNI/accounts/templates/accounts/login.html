@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+
+
+{% block title %} LOGIN {% endblock %}
+<link rel="stylesheet" href="{% static 'accounts/css/login.css%'}">
+{% block body %} 
+<div class="container justify-content-cente ">
+     <div class="row ">
+          <form action="" method="post" class="col-md-3 mx-auto">
+               {% csrf_token %}
+               <h3>login</h3>
+
+               <div class="form-group">
+                    <label for="exampleInputEmail1">UserName</label>
+                    <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" >
+                    
+               </div> 
+                    
+               <div class="form-group m-b-2">
+                    <label for="exampleInputPassword1">Password</label> 
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password"> 
+               </div> 
+                    
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>   <br>
+               <a  href="{% url 'accounts:reset_password' %}">Forgot Password!</a>
+          </form>
+     </div>
+</div>
+{% endblock %}

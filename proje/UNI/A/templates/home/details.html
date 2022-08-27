@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %} detail {% endblock %}
+
+{% block body %}
+
+
+     
+
+     <div class="container">
+          <div class="row ">
+               
+
+               <div class="col-md-6 mx-auto shadow">
+
+                    <img src="{{posts.img.url}}" style="width: 100%; padding: 5px;" alt="">
+                    <p class="mt-2" >users created: <a style="font-size: 20px; text-decoration: none;" href="{% url 'accounts:profileurl' posts.user.id  %}">{{posts.user}} </a>
+                       
+                         </p>
+
+                    <p class="mt-2" >title: {{posts.title}}</p>
+                    <p  >caption: {{posts.body}}</p>
+                    <p >last updated: {{posts.updated}}</p>
+                    {% if canlike == True %}
+                         <a href="{% url 'A:likeurl' posts.id %}" class="btn btn-primary mb-2"> Like {{like_count}}</a>
+                    {% else  %}
+                    
+                         <a href="{% url 'A:dislikeurl' posts.id %}" class="btn btn-info mb-2"> disLike {{like_count}}</a>
+                         
+                    {% endif %}
+                    {% if user.id == posts.user.id %}
+                    <a href="{% url 'A:deleteurl' posts.id %}" class="btn btn-danger  mb-2">delete</a>
+                   <a href="{% url 'A:updateurl' posts.id %}" class="btn btn-info  mb-2">update</a> 
+                   {% endif %}
+
+
+               </div>
+               
+
+          </div>
+     </div>
+     <div class="container mt-5">
+          <div class="row">
+               <div class="col-md-4 mx-auto">
+               <form action="" method="post">
+                    {% csrf_token %}
+                    <textarea name="comment" class="form-control"  placeholder="Your Comment: " id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <input class="btn btn-primary mt-2" value=" Comment"  type="submit">
+
+               </form>
+          </div>
+          </div>
+     </div>
+     <div class="container mt-5">
+          <div class="row">
+               <div class="col-md-4 mx-auto">
+               {% for comment in comments %}
+                    <p style="word-wrap: break-word;" class="alert alert-info">{{comment.body}}</p>
+               {% endfor %}
+          </div>
+          </div>
+     </div>
+
+
+
+
+     
+ 
+
+
+{% endblock %}

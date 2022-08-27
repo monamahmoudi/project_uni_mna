@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %} profile {% endblock %}
+
+
+     <link rel="stylesheet" href="{% static 'accounts/css/profile.css'%}">
+
+
+{% block body %} 
+
+     
+
+
+     
+
+
+
+     {% if request.user.id != user.id and not is_following %}
+          <a class="btn btn-primary mb-2"  href="{% url 'accounts:followurl' user.id %}">follow</a>
+     {% elif request.user.id != user.id and  is_following %}
+          <a class="btn btn-primary mb-2 "  href="{% url 'accounts:unfollowurl' user.id %}">unfollow</a>
+     {% endif %}
+   {% if request.user.id == user.id %}
+     <div class="card">
+          <div class="container">
+               <div class="profile" style="display: flex; margin: 20px; padding: 10px;">
+                    <div class="image" style="width: 100px; height: 100px; ">
+                         {% if user.profile.image %}
+                              <a href="{{user.profile.image.url}}">  <img src="{{user.profile.image.url}}" style="width: 100%; height: 100%; border-radius: 50px; margin: 10px;"></a>
+                         {% else %}
+                         <img src="{% static 'accounts/img/profile.png'%}" alt="my img" style="width: 100%; height: 100%; border-radius: 50px; margin: 10px;">
+                              {% endif %}
+                    </div>
+                    <div class="title" style="width: auto; padding: 0;  height: 100px; margin-left: 30px;">
+                         <h6 style="">{{user.email}}</h6>
+                         <h6 style="">{{user.username}}</h6>
+                         <h6 style="">{{user.profile.age}}</h6>
+                         {% if request.user.id == user.id %}
+         
+          <a href="{% url 'accounts:editurl' %}" class="btn btn-primary">edit</a>
+     {% endif %}
+
+                        
+                    
+                    </div>
+               </div>
+                 
+                    
+
+             
+          </div>
+        
+     </div>
+     {% endif %}
+     {% if posts %}
+     <p class="alert alert-primary mt-5">your posts</p>
+
+     <div class="card">
+
+          <div class="container">
+
+               <div class="row">
+                    {% for postmodel in posts %}
+                    
+                         <div class="col-md-4">
+                              <div class="body-post shadow mt-3 mb-3" style="padding: 5px;">
+                              <div >
+                                   <a style="text-decoration:none ; text-align: center;" href="{{postmodel.get_absolute_url}}" >
+                                   
+                                        <img src="{{postmodel.img.url}}" style="width: 100%; height: 300px; " >
+                                   
+                                        <p style="color: black ;" class="mt-2 mb-3" > title: {{postmodel.title}} </p>
+                                      
+          
+                                   </a>
+                                 
+                                   </div>
+                              </div>
+                         </div>
+                        
+                        
+                    {% endfor %}
+
+               </div>
+          </div>
+        
+     </div>
+     {% endif %}
+        <!-- <a  href="{{postmodel.get_absolute_url}}" style="text-decoration: none; color: black;"><img src="{{postmodel.img.url}}" style="width: 300px; height: 300px; margin-top: 20px ;" class="" >
+                         <p style="margin-top: 5px; "><strong> user created: </strong> {{postmodel.user}}</p>
+                         <p style="margin-top: 5px;"><strong> post informations:</strong> {{postmodel.body}}</p>
+                         <p style="margin-top: 5px;"><strong>post created:</strong> {{postmodel.created | timesince}}</p>
+                         <p style="margin-top: 5px;"><strong>last updated: </strong>{{postmodel.updated | timesince}}</p> 
+
+                         </a> -->
+                    
+                        
+{% endblock %}
+

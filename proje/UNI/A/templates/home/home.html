@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} HOME {% endblock %}
+
+{% block body %} 
+     <div class="container">
+          <div class="row mx-auto">
+               {% for postmodel in posts %}
+               <div class="col-md-4">
+                    <div class="body-post shadow mt-3" style="padding: 5px;">
+                    <div >
+                         <a style="text-decoration:none ; text-align: center;" href="{{postmodel.get_absolute_url}}" >
+                         
+                              <img src="{{postmodel.img.url}}" style="width: 100%; height: 300px; " >
+                         
+                              <p style="color: black ;" class="mt-2" > title: {{postmodel.title}} </p>
+
+                         </a>
+                       
+                         </div>
+                    </div>
+               </div>
+              
+               
+               {% endfor %}
+          </div>
+     </div>
+{% endblock %}
